@@ -15,7 +15,7 @@ blueprint = Blueprint(
 
 @blueprint.route('/<snack>', methods=[GET])
 def get_rating(snack):
-    return {'snack': snack}
+    return {'rating': 5}  # TODO replace with actual rating
 
 
 @blueprint.route('<snack>', methods=[POST])
@@ -27,7 +27,7 @@ def update_rating(snack):
 
     response = {
         'snack': snack,
-        'rating': rating,
+        'rating': rating,  # TODO replace this with the new rating
     }
 
     return response
