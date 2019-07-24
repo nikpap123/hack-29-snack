@@ -8,8 +8,6 @@ h1, h2, h3, h4, h5, h6 {
   text-align: center;
 }
 
-.header { font-size: 60px; font-family: ''; color: #FFFFFF; background-color: #D32323; }
-
 a.link {
   text-decoration: none;
   color: #ff1769;
@@ -32,3 +30,5 @@ a.link:hover {
   color: white;
   float: left;
 }
+
+body { padding-top: 70px; }
