@@ -14,11 +14,11 @@ def get_availability():
 
     # TODO replace with response from core logic
     response = {
-        'beef jerky': {
+        'white cheddar cheez it': {
             'available': True,
             'level': None,
         },
-        'cheez its': {
+        'sea salt crunchy chickpeas': {
             'available': False,
             'level': None,
         },
