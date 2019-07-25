@@ -4,7 +4,7 @@ from flask_cors import CORS
 from flask_redis import FlaskRedis
 
 import routes
-# from routes import rating
+from routes import rating
 from routes import availability
 from routes import nutrition
 from logic.exceptions import InvalidUsage
@@ -12,7 +12,7 @@ from logic.exceptions import InvalidUsage
 app = Flask(__name__)
 redis_client = FlaskRedis(app)
 app.register_blueprint(routes.blueprint)
-# app.register_blueprint(rating.blueprint)
+app.register_blueprint(rating.blueprint)
 app.register_blueprint(availability.blueprint)
 app.register_blueprint(nutrition.blueprint)
 CORS(app)
@@ -26,4 +26,4 @@ def handle_invalid_usage(error):
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)

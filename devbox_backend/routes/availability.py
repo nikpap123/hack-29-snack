@@ -1,6 +1,7 @@
 from flask import Blueprint
 
 from routes.util import GET
+from logic.availability import get_latest_availability
 
 blueprint = Blueprint(
     name='availability',
@@ -23,5 +24,6 @@ def get_availability():
             'level': None,
         },
     }
-
+    response = get_latest_availability()
+    print(len(response))
     return response
