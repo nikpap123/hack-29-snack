@@ -79,9 +79,16 @@ class App extends Component {
       <div className="app">
 
         <Navigation/>
+        
+        <h2>
+          <img style={{position: 'relative', top: '-10px'}}src={require('./images/corgif.gif')} />
+          Welcome to the Snackathon!
+        </h2>
 
         <SimpleTable availability={this.state.availability} nutrition={this.state.nutrition} clickAction={(name) => this.handleClick(name)}/>
         
+        <h2>Live photo:</h2>
+
         <img width="100%" height="100%" src={require('./images/snack.jpg')} />
 
         <Modal onHide={() => this.handleClose()} show={this.state.show}>
