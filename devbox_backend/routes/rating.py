@@ -5,6 +5,8 @@ from routes.util import GET
 from routes.util import POST
 from logic.rating import valid_ratings
 from logic.exceptions import InvalidUsage
+from app import redis_client
+
 
 blueprint = Blueprint(
     name='rating',
@@ -12,7 +14,6 @@ blueprint = Blueprint(
     url_prefix='/rating',
 )
 
-from app import redis_client
 
 @blueprint.route('/<snack>', methods=[GET])
 def get_rating(snack):
@@ -28,6 +29,7 @@ def get_rating(snack):
     }
 
     return response
+
 
 @blueprint.route('<snack>', methods=[POST])
 def update_rating(snack):
