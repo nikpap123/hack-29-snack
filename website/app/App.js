@@ -7,6 +7,7 @@ import Button from 'react-bootstrap/Button';
 import NutritionalTable from './components/NutritionalTable';
 import StarRatingComponent from 'react-star-rating-component';
 import './App.css';
+import axios from 'axios';
 
 class App extends Component {
   constructor (props) {
@@ -14,27 +15,42 @@ class App extends Component {
 
     this.state = {
       show: false,
-      current_snack: ""
+      current_snack: "",
+      floor: 2,
+      rating: 0
     }
   }
 
+  getNutrition() {
+  }
+
+  getAvailability() {
+    console.log('Availability');
+    axios.get('http://localhost:5000/availability')
+      .then(response => console.log(response));
+  }
   
   handleClose () {
     this.setState({show: false})
   } 
 
   handleSaveAndClose() {
+    this.submitRating(this.state.rating);
+    this.handleClose();
   }
 
   handleClick(name) {
+    this.getAvailability();
     this.setState({show: true})
     this.setState({current_snack: name})
   }
 
-  submitRating(rating) {
+  submitRating(rating) { 
+    console.log(rating)
   }
 
-  componentDidMount () {
+  onStarClick(nextValue, prevValue, name){
+    this.setState({rating: nextValue})
   }
 
   render() {
@@ -47,7 +63,7 @@ class App extends Component {
         
         <img width="100%" height="100%" src={require('./images/snack.jpg')} />
 
-        <Modal show={this.state.show}>
+        <Modal onHide={() => this.handleClose()} show={this.state.show}>
           <Modal.Header>
             <Modal.Title>{this.state.current_snack}</Modal.Title>
           </Modal.Header>
@@ -56,6 +72,8 @@ class App extends Component {
             <p>Leave a review!</p>
             <StarRatingComponent
               name={"leaveReview"}
+              value={this.state.rating}
+              onStarClick={this.onStarClick.bind(this)}
               editing={true}
             />
             <p>Nutrition Details</p>
@@ -63,7 +81,7 @@ class App extends Component {
           </Modal.Body>
 
           <Modal.Footer>
-            <Button variant="primary" onClick={() => this.handleClose()}>Save and Close</Button>
+            <Button variant="primary" onClick={() => this.handleSaveAndClose()}>Save and Close</Button>
             <Button variant="secondary" onClick={() => this.handleClose()}>Close</Button>
           </Modal.Footer>
         </Modal>
