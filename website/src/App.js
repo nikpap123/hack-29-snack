@@ -7,7 +7,7 @@ import Button from 'react-bootstrap/Button';
 import NutritionalTable from './components/NutritionalTable';
 import StarRatingComponent from 'react-star-rating-component';
 import './App.css';
-import axios from 'axios';
+import $ from 'jquery';
 
 class App extends Component {
   constructor (props) {
@@ -17,17 +17,39 @@ class App extends Component {
       show: false,
       current_snack: "",
       floor: 2,
-      rating: 0
+      rating: 0,
+      availability: {},
+      nutrition: {}
     }
   }
 
-  getNutrition() {
+  componentWillMount() {
+    this.getAvailability();
+    this.getNutrition();
   }
 
-  getAvailability() {
-    console.log('Availability');
-    axios.get('http://localhost:5000/availability')
-      .then(response => console.log(response));
+  getPhoto() {
+  }
+
+  getRating() {
+  }
+
+  getNutrition() {
+    $.ajax({
+      method: "GET",
+      url: "/nutrition"
+    }).done((response) => {
+      this.setState({nutrition: response})
+    });
+  }
+
+   getAvailability() {
+    $.ajax({
+      method: "GET",
+      url: "/availability"
+    }).done((response) => {
+      this.setState({availability: response})
+    });
   }
   
   handleClose () {
@@ -40,7 +62,6 @@ class App extends Component {
   }
 
   handleClick(name) {
-    this.getAvailability();
     this.setState({show: true})
     this.setState({current_snack: name})
   }
@@ -59,7 +80,7 @@ class App extends Component {
 
         <Navigation/>
 
-        <SimpleTable clickAction={(name) => this.handleClick(name)}/>
+        <SimpleTable availability={this.state.availability} nutrition={this.state.nutrition} clickAction={(name) => this.handleClick(name)}/>
         
         <img width="100%" height="100%" src={require('./images/snack.jpg')} />
 
@@ -77,7 +98,7 @@ class App extends Component {
               editing={true}
             />
             <p>Nutrition Details</p>
-            <NutritionalTable/>
+            <NutritionalTable nutrition={this.state.nutrition} snack={this.state.current_snack}/>
           </Modal.Body>
 
           <Modal.Footer>

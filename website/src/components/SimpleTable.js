@@ -19,21 +19,16 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function createData(name, calories, present, rating) {
-  var available = present?'Yes':'No';
-  return { name, calories, available, rating };
-}
-
-const rows = [
-  createData('Vanilla stroopwafel',120, false, 4),
-  createData('Cookies and cream stroopwafel', 120,  false, 1),
-  createData('Lemon luna bars', 120, false, 2),
-  createData('Peanut butter dark chocolate kind bar', 120, true, 4),
-  createData('Fruit snacks', 120, true, 3),
-];
-
 export default function SimpleTable(props) {
   const classes = useStyles();
+  var rows = []
+  for (var key in props.availability){
+    rows.push({
+      'name': key,
+      'calories': props.nutrition[key]?props.nutrition[key]['calories']:'N/A',
+      'available': props.availability[key]['available']?'Yes':'No'
+    })
+  }
 
   return (
     <Paper className={classes.root}>
