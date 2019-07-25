@@ -1,4 +1,4 @@
 #!/bin/bash
 
 DATE=$(date +"%Y-%m-%d_%H%M%S")
-fswebcam --no-banner -r 640x480 --crop 320x390,160x80 --scale 224x224 /home/pi/snacks-photos/$DATE.jpg 
+fswebcam --no-banner -r 1920x1080 --crop 840x840,550x220 /home/pi/hack-29-snack/snack-photos/$DATE.jpg 
