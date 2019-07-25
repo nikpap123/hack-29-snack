@@ -2,6 +2,7 @@ from flask import Blueprint
 from flask import request
 
 from routes.util import GET
+from logic.nutrition import get_nutrition_data
 
 blueprint = Blueprint(
     name='nutrition',
@@ -12,8 +13,7 @@ blueprint = Blueprint(
 
 @blueprint.route('/', methods=[GET])
 def get_all_nutrition():
-    # TODO call core logic to retrieve all nutrition data
-    return {}
+    return get_nutrition()
 
 
 @blueprint.route('/<snack>', methods=[GET])
@@ -23,10 +23,14 @@ def get_nutrition(snack):
 
     if is_image_requested:
         # TODO call core logic for retrieving nutrition image
-        pass
+        return {}
 
     else:
-        # TODO call core logic for retrieving individual nutrition
-        pass
-
-    return {}
+        nutrition = get_nutrition_data(snack)
+        if nutrition is None:
+            return {}
+        else:
+            return {
+                'common_name': snack,
+                'nutrition': nutrition,
+            }
