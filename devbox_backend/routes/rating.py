@@ -32,8 +32,7 @@ def get_rating(snack):
 
 @blueprint.route('<snack>', methods=[POST])
 def update_rating(snack):
-    rating = int(request.args.get('value'))
-    if rating not in valid_ratings:
+    if int(request.form.get('rating')) not in valid_ratings:
         raise InvalidUsage('Rating value is invalid', status_code=422)
 
     snack_rating_key = '{}_rating'.format(snack)
@@ -54,7 +53,7 @@ def update_rating(snack):
     
     response = {
         'snack': snack,
-        'rating': rating
+        'rating': rating / count
     }
 
     return response
