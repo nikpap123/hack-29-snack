@@ -4,12 +4,14 @@ from flask import jsonify
 import routes
 from routes import rating
 from routes import availability
+from routes import nutrition
 from logic.exceptions import InvalidUsage
 
 app = Flask(__name__)
 app.register_blueprint(routes.blueprint)
 app.register_blueprint(rating.blueprint)
 app.register_blueprint(availability.blueprint)
+app.register_blueprint(nutrition.blueprint)
 
 
 @app.errorhandler(InvalidUsage)
