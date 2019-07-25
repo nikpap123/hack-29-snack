@@ -22,18 +22,24 @@ function createData(name, value) {
   return { name, value };
 }
 
-const rows = [
-  createData('Calories (kcal)', 120),
-  createData('Total Fat (g)', 6),
-  createData('Cholesterol (mg)', 5),
-  createData('Sodium (mg)', 90),
-  createData('Total Carbohydrates (g)', 19),
-  createData('Protein (g)', 1) 
-];
-
 export default function NutritionalTable(props) {
   const classes = useStyles();
 
+  var rows = []
+  for (var key in props.nutrition[props.snack]) {
+    var val = props.nutrition[props.snack][key];
+    if (!isNaN(val)){
+      if (['cholesterol', 'sodium', 'potassium'].includes(key))
+        val += ' mg'
+      else
+        val += ' g'
+    }
+    rows.push({
+      'name': key,
+      'value': val
+    })
+  }
+  
   return (
     <Paper className={classes.root}>
       <Table className={classes.table}>

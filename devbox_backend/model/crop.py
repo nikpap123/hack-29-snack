@@ -12,7 +12,7 @@ def crop_row(im, height, width, x, y, row, skip, padding):
         row_data.append(a)
     return row_data
 
-def make_input_data(path, imfile):
+def make_input_data(imfile):
     crop_data = []
     in_path = imfile
     im = Image.open(in_path)

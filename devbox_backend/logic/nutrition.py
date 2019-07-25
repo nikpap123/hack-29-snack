@@ -6,6 +6,7 @@ nutrition_file_fieldnames = [
     'brand',
     'kind',
     'name',
+    'common_name',
     'calories',
     'fats',
     'carbohydrates',
@@ -21,6 +22,7 @@ def _add_nutrition_to_file(
     brand,
     kind,
     name,
+    common_name,
     calories,
     fats,
     carbohydrates,
@@ -36,6 +38,7 @@ def _add_nutrition_to_file(
                 'brand': brand,
                 'kind': kind,
                 'name': name,
+                'common_name': common_name,
                 'calories': calories,
                 'fats': fats,
                 'carbohydrates': carbohydrates,
@@ -53,16 +56,15 @@ def _read_nutrition_from_file(nutrition_file):
         return [dict(row) for row in reader]
 
 
-def _append_common_name_to_nutrition(nutrition_data):
-    return {
-        '{} {}'.format(snack_nutrition['kind'], snack_nutrition['name']): snack_nutrition
-        for snack_nutrition in nutrition_data
-    }
+def _process_common_name_from_nutrition(nutrition_data):
+    nutrition_data = {snack_nutrition['common_name']: snack_nutrition for snack_nutrition in nutrition_data}
+    for key, value in nutrition_data.items():
+        del value['common_name']
+    return nutrition_data
 
 
 def get_nutrition_data(common_snack_name=None):
-    nutrition = _append_common_name_to_nutrition(_read_nutrition_from_file(nutrition_filename))
-
+    nutrition = _process_common_name_from_nutrition(_read_nutrition_from_file(nutrition_filename))
     if common_snack_name is not None:
         return nutrition.get(common_snack_name, None)
 

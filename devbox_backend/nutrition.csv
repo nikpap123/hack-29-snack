@@ -1,21 +1,21 @@
-quaker,original,instant oatmeal,100,2,18,4,0,75,105
-quaker,apples & cinnamon,instant oatmeal,160,2,33,4,0,140,150
-quaker,maple & brown sugar,instant oatmeal,160,2,33,4,0,260,115
-quaker,cinnamon & spice,instant oatmeal,160,2.5,32,4,0,200,125
-cheez it,white cheddar,cheez it,280,14,34,5,5,380,35
-the good bean,sea salt,crunchy chickpeas,168,4,25,8,0,133,-
-jiff,creamy peanut butter,power ups,190,11,18,6,0,110,-
-jiff,strawberry,power ups,190,11,18,6,0,115,-
-golden valley,original,all natural turkey jerky,60,0,6,11,10,270,-
-golden valley,black pepper,all natural beef jerky,80,1,8,11,25,380,-
-cliff bar,coconut almond butter,230,11,27,6,0,160,-
-kind,oats,healthy grains,150,5,23,3,0,95,-
-kind,chocolate,health grains,150,5,23,3,0,75,-
-luna,chocolate,whole nutrition bar,200,8,26,8,0,150,-
-luna,lemon,whole nutrition bar,190,6,28,8,0,85,-
-nature's bakery,strawberry,fig bar,100,2.5,19,1,0,40,-
-rip van,dutch caramel,wafels,120,6,19,1,90,5,-
-rip van,cookies & cream,wafels,130,7,18,1,80,5,-
-fruit for thought,mango,fruit snacks,90,0,21,1,0,0,-
-kirkland,organic,fruity snacks,70,0,12,1,10,0,-
-fruit for thought,apricot,fruit snacks,70,0,17,1,0,0,-
+quaker,original,instant oatmeal,original quaker instant oatmeal,100,2,18,4,0,75,105
+quaker,apple & cinnamon,instant oatmeal,apple & cinnamon quaker instant oatmeal,160,2,33,4,0,140,150
+quaker,maple & brown sugar,instant oatmeal,maple & brown suggar quaker instant oatmeal,160,2,33,4,0,260,115
+quaker,cinnamon & spice,instant oatmeal,cinnamon & spice quaker instant oatmeal,160,2.5,32,4,0,200,125
+cheez it,white cheddar,cheez it,white cheddar cheez-it,280,14,34,5,5,380,35
+the good bean,sea salt,crunchy chickpeas,sea salt crunchy chickpeas,168,4,25,8,0,133,-
+jiff,creamy peanut butter,power ups,creamy peanut butter jif power ups,190,11,18,6,0,110,-
+jiff,strawberry,power ups,strawberry jif power ups,190,11,18,6,0,115,-
+golden valley,original,all natural turkey jerky,original turkey jerky,60,0,6,11,10,270,-
+golden valley,black pepper,all natural beef jerky,black pepper beef jerky,80,1,8,11,25,380,-
+cliff bar,coconut almond butter,clif bar,coconut almond butter clif bar,230,11,27,6,0,160,-
+kind,oats,healthy grains,oat & honey kind healthy grains kind bar,150,5,23,3,0,95,-
+kind,chocolate,health grains,peanut butter dark chocolate healthy grains kind bar,150,5,23,3,0,75,-
+luna,chocolate,whole nutrition bar,chocolate peanut butter luna bar,200,8,26,8,0,150,-
+luna,lemon,whole nutrition bar,lemonzest luna bar,190,6,28,8,0,85,-
+nature's bakery,strawberry,fig bar,strawberry fig bar,100,2.5,19,1,0,40,-
+rip van,dutch caramel,wafels,dutch caramel & vanilla rip van wafels,120,6,19,1,90,5,-
+rip van,cookies & cream,wafels,cookies & cream rip van wafels,130,7,18,1,80,5,-
+fruit for thought,mango,fruit snacks,organic dried mango,90,0,21,1,0,0,-
+kirkland,organic,fruity snacks,kirkland organic fruit snacks,70,0,12,1,10,0,-
+fruit for thought,apricot,fruit snacks,dried blenheim apricots,70,0,17,1,0,0,-
