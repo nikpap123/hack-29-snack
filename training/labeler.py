@@ -17,7 +17,7 @@ def detect_rl_click(event,x,y,flags,param):
         existsQ.append(0)
 
 lables = defaultdict(list)
-for imfile in glob.glob('*.jpg'):
+for imfile in glob.glob('data/*.jpg'):
     image = cv2.imread(imfile)
     imageS = cv2.resize(image, (960, 960))
     cv2.namedWindow('image')
