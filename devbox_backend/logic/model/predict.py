@@ -1,11 +1,8 @@
-
 import os
-from crop import make_input_data
+from .crop import make_input_data
 import numpy as np
 from sklearn.svm import SVC
 from sklearn.externals import joblib
-
-
 
 def predict(imname):
     path = os.path.dirname(os.path.realpath(__file__))
@@ -18,6 +15,3 @@ def predict(imname):
         data[i,:] = np.array(im).flatten()
     y_pred = clf.predict(data)
     return y_pred
-
-imname = 'empty_rm2.jpg'
-print(predict(imname))

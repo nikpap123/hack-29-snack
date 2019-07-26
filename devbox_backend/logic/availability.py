@@ -1,3 +1,4 @@
+from logic.model.predict import predict
 
 snacks = [
     "coconut almond butter clif bar",
@@ -26,12 +27,12 @@ snacks = [
 
 def _map_predict_outputs_to_snack(predict_outputs):
     return {
-        snack: availability
+        snack: {
+          "availability": int(availability)
+        }
         for snack, availability in zip(snacks, predict_outputs)
-    }   
-         
+    }           
 
 def get_latest_availability():
-    # TODO: get data from training model.
-    predict_output = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+    predict_output = predict('../empty1.jpg');
     return _map_predict_outputs_to_snack(predict_output)
