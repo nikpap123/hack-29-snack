@@ -8,6 +8,7 @@ from routes import rating
 from routes import availability
 from routes import nutrition
 from routes import image
+from routes import review
 from logic.exceptions import InvalidUsage, NotFoundError
 
 app = Flask(__name__)
@@ -17,6 +18,7 @@ app.register_blueprint(rating.blueprint)
 app.register_blueprint(availability.blueprint)
 app.register_blueprint(nutrition.blueprint)
 app.register_blueprint(image.blueprint)
+app.register_blueprint(review.blueprint)
 CORS(app)
 
 
