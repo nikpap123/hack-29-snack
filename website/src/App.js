@@ -88,7 +88,6 @@ class App extends Component {
   }
 
   submitRating(rating) { 
-    console.log(rating)
     $.ajax({
       method: "POST",
       url: "/rating/" + this.state.current_snack,
@@ -142,7 +141,7 @@ class App extends Component {
         {this.state.photo_view &&
            <div>
             <a className="link" onClick={() => this.changeView()}> see snack details </a>
-            <img width="100%" height="100%" style={{paddingTop: '20px'}} src={require('./images/snack.jpg')} />
+            <img width="100%" height="100%" style={{paddingTop: '20px'}} src={require('./images/image.jpg')} />
           </div>
         }
 
@@ -152,7 +151,7 @@ class App extends Component {
           </Modal.Header>
 
           <Modal.Body>
-            <p>Leave a review!</p>
+            <p style={{marginTop: 0, marginBottom: 0}}>Leave a review!</p>
             <StarRatingComponent
               name={"leaveReview"}
               value={this.state.rating}
@@ -160,7 +159,7 @@ class App extends Component {
               editing={true}
             />
             <br/>
-            <p>Nutrition Details</p>
+            <p style={{marginTop: "2px", marginBottom: 0}}>Nutrition Details</p>
             <NutritionalTable nutrition={this.state.nutrition} snack={this.state.current_snack}/>
           </Modal.Body>
 
