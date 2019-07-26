@@ -7,7 +7,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import StarRatingComponent from 'react-star-rating-component';
-
+import { Badge } from 'react-bootstrap';
 const useStyles = makeStyles(theme => ({
   root: {
     width: '100%',
@@ -26,7 +26,7 @@ export default function SimpleTable(props) {
     rows.push({
       'name': key,
       'calories': props.nutrition[key]?props.nutrition[key]['calories']:'N/A',
-      'available': props.availability[key]['availability']?'Yes':'No',
+      'available': props.availability[key]['availability']? <Badge variant="success">Yes</Badge>:<Badge variant="danger">No</Badge>,
       'rating': props.ratings[key]['rating'],
       'count': props.ratings[key]['count']
     })
