@@ -42,8 +42,7 @@ blueprint = Blueprint(
 def get_ratings():
     response = {}
     for snack in snacks:
-      s = snack.replace(' ', '%20')
-      response[snack] = get_rating(s)
+      response[snack] = get_rating(snack)
     return response
 
 @blueprint.route('/<snack>', methods=[GET])
