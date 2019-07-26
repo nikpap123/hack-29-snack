@@ -15,7 +15,7 @@ snacks = [
     "cinnamon & spice quaker instant oatmeal",
     "maple & brown suggar quaker instant oatmeal",
     "apple & cinnamon quaker instant oatmeal",
-    "origginal quaker instant oatmeal",
+    "original quaker instant oatmeal",
     "white cheddar cheez-it",
     "original turkey jerky",
     "black pepper beef jerky",
