@@ -14,3 +14,5 @@ virtualenv venv
 source venv/bin/activate
 pip install -r requirements
 ```
+
+You can view the website on localhost:3000

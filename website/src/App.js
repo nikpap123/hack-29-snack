@@ -64,6 +64,7 @@ class App extends Component {
       method: "GET",
       url: "/availability"
     }).done((response) => {
+      console.log(response)
       this.setState({availability: response})
       if (Object.keys(this.state.ratings).length != 0)
         if (Object.keys(this.state.nutrition).length != 0)

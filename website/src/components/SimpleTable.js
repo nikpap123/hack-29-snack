@@ -26,7 +26,7 @@ export default function SimpleTable(props) {
     rows.push({
       'name': key,
       'calories': props.nutrition[key]?props.nutrition[key]['calories']:'N/A',
-      'available': props.availability[key]['available']?'Yes':'No',
+      'available': props.availability[key]['availability']?'Yes':'No',
       'rating': props.ratings[key]['rating'],
       'count': props.ratings[key]['count']
     })

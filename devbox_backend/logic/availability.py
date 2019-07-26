@@ -4,7 +4,7 @@ import subprocess
 from logic.model.predict import predict
 
 snacks = [
-    "coconut almond butter clif bar",
+    "coconut almond butter cliff bar",
     "strawberry fig bar",
     "lemonzest luna bar",
     "chocolate peanut butter luna bar",
@@ -16,7 +16,7 @@ snacks = [
     "dried blenheim apricots",
     "kirkland organic fruit snacks",
     "cinnamon & spice quaker instant oatmeal",
-    "maple & brown suggar quaker instant oatmeal",
+    "maple & brown sugar quaker instant oatmeal",
     "apple & cinnamon quaker instant oatmeal",
     "original quaker instant oatmeal",
     "white cheddar cheez-it",
@@ -30,7 +30,7 @@ snacks = [
 user = os.environ.get('USER')
 pi_image_path = '/home/pi/hack-29-snack/devbox_backend/image.jpg'
 backend_image_path = '/Users/{user}/hack-29-snack/devbox_backend/image.jpg'.format(user=user)
-frontend_image_path = '/Users/{user}/hack-29-snack/devbox_backend/image.jpg'.format(user=user)
+frontend_image_path = '/Users/{user}/hack-29-snack/website/src/images/image.jpg'.format(user=user)
 
 
 def _copy_image_from_pi():
@@ -39,7 +39,13 @@ def _copy_image_from_pi():
         'pi@172.30.166.1:{pi_image_path}'.format(pi_image_path=pi_image_path),
         backend_image_path,
     ]
+    copy_image_to_frontend = [
+        'cp',
+        backend_image_path,
+        frontend_image_path
+    ]
     subprocess.run(copy_image_bash_command)
+    subprocess.run(copy_image_to_frontend)
 
 
 def _map_predict_outputs_to_snack(predict_outputs):
