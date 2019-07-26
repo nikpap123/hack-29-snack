@@ -16,4 +16,3 @@ def predict(imname):
     y_pred = clf.predict(data)
     return y_pred
 
-print(predict('offset.jpg'))

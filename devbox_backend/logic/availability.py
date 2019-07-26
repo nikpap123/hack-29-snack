@@ -30,6 +30,7 @@ snacks = [
 user = os.environ.get('USER')
 pi_image_path = '/home/pi/hack-29-snack/devbox_backend/image.jpg'
 backend_image_path = '/Users/{user}/hack-29-snack/devbox_backend/image.jpg'.format(user=user)
+frontend_image_path = '/Users/{user}/hack-29-snack/devbox_backend/image.jpg'.format(user=user)
 
 
 def _copy_image_from_pi():

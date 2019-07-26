@@ -21,13 +21,15 @@ class App extends Component {
       availability: {},
       nutrition: {},
       ratings: {},
-      photo_view: true
+      photo_view: false,
+      loading: true
     }
   }
 
   componentWillMount() {
     this.getAvailability();
     this.getNutrition();
+    this.getRatings();
   }
 
   getPhoto() {
@@ -38,8 +40,10 @@ class App extends Component {
       method: "GET",
       url: "/rating"
     }).done((response) => {
-      console.log(response);
       this.setState({ratings: response})
+      if (Object.keys(this.state.nutrition).length != 0)
+        if (Object.keys(this.state.availability).length != 0)
+          this.setState({loading: false})
     });
   }
 
@@ -49,6 +53,9 @@ class App extends Component {
       url: "/nutrition"
     }).done((response) => {
       this.setState({nutrition: response})
+      if (Object.keys(this.state.ratings).length != 0)
+        if (Object.keys(this.state.availability).length != 0)
+          this.setState({loading: false})
     });
   }
 
@@ -58,10 +65,15 @@ class App extends Component {
       url: "/availability"
     }).done((response) => {
       this.setState({availability: response})
+      if (Object.keys(this.state.ratings).length != 0)
+        if (Object.keys(this.state.nutrition).length != 0)
+          this.setState({loading: false})
     });
   }
   
   handleClose () {
+    this.setState({rating: 0})
+    this.setState({current_snack: ""})
     this.setState({show: false})
   } 
 
@@ -83,7 +95,7 @@ class App extends Component {
         rating: this.state.rating
       }
     }).done((response) => {
-      this.setState({nutrition: response})
+      this.getRatings()
     });
 
   }
@@ -102,21 +114,34 @@ class App extends Component {
 
         <Navigation/>
         
-        <h2>
+        {!this.state.loading &&
+          <h2>
               <img style={{position: 'relative', top: '-10px'}}src={require('./images/corgif.gif')} />
               Welcome to the Snackathon!
-        </h2>
+          </h2>
+        }
+        
+        {this.state.loading && 
+          <h2>
+            Loading delicious snacks...
+          </h2>
+        }
 
-        {this.state.photo_view && 
+        {!this.state.photo_view && !this.state.loading && 
           <div>
             <a className="link" onClick={() => this.changeView()}> see live photo </a>
-            <SimpleTable availability={this.state.availability} nutrition={this.state.nutrition} clickAction={(name) => this.handleClick(name)}/>
+            <SimpleTable ratings={this.state.ratings} availability={this.state.availability} nutrition={this.state.nutrition} clickAction={(name) => this.handleClick(name)}/>
           </div>
         }
-        {!this.state.photo_view &&
-          <div>
+
+        {!this.state.photo_view && this.state.loading &&
+            <img style={{position: 'relative', top: '-10px'}}src={require('./images/loading.svg')} />
+        }
+
+        {this.state.photo_view &&
+           <div>
             <a className="link" onClick={() => this.changeView()}> see snack details </a>
-            <img width="100%" height="100%" style={{paddingTop: '20px'}} src={require('./images/snack.jpg')} />
+            <img width="100%" height="100%" style={{paddingTop: '20px'}} src={require('./images/image.jpg')} />
           </div>
         }
 
@@ -126,14 +151,15 @@ class App extends Component {
           </Modal.Header>
 
           <Modal.Body>
-            <p>Leave a review!</p>
+            <p style={{marginTop: 0, marginBottom: 0}}>Leave a review!</p>
             <StarRatingComponent
               name={"leaveReview"}
               value={this.state.rating}
               onStarClick={this.onStarClick.bind(this)}
               editing={true}
             />
-            <p>Nutrition Details</p>
+            <br/>
+            <p style={{marginTop: "2px", marginBottom: 0}}>Nutrition Details</p>
             <NutritionalTable nutrition={this.state.nutrition} snack={this.state.current_snack}/>
           </Modal.Body>
 
