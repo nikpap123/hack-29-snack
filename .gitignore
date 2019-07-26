@@ -1,5 +1,5 @@
 node_modules
-devbox-backend/logic/model/mask_rcnn_coco.h5
+devbox_backend/logic/model/mask_rcnn_coco.h5
 .idea
 *venv/
 .DS_Store

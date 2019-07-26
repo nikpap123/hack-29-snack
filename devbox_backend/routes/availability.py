@@ -32,11 +32,12 @@ def get_availability():
     redis_client = current_app.extensions.get('redis')
     if should_rerun_model(redis_client):
         availability = get_latest_availability()
-        availability_str = json.dumps(availability)
-        redis_client.set(AVAILABILITY, availability_str)
-        redis_client.set(IMAGE_TIMESTAMP_KEY, datetime.now().strftime(TIMESTAMP_FORMAT))
-        avail = redis_client.get(AVAILABILITY)
-        return availability
+        if availability:
+            availability_str = json.dumps(availability)
+            redis_client.set(AVAILABILITY, availability_str)
+            redis_client.set(IMAGE_TIMESTAMP_KEY, datetime.now().strftime(TIMESTAMP_FORMAT))
+            avail = redis_client.get(AVAILABILITY)
+            return availability
 
     avail = json.loads(redis_client.get(AVAILABILITY))
     return avail
