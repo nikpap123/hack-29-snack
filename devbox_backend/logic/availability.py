@@ -51,5 +51,6 @@ def _map_predict_outputs_to_snack(predict_outputs):
 
 
 def get_latest_availability():
+    _copy_image_from_pi()
     predict_output = predict(backend_image_path)
     return _map_predict_outputs_to_snack(predict_output)
