@@ -7,6 +7,12 @@ module.exports = {
         path : path.resolve(__dirname , 'dist'),
         filename: 'index_bundle.js'
     },
+    devServer: {
+      headers: { 
+       "Access-Control-Allow-Origin": "*",
+       "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept"
+      }
+    },
     module : {
         rules : [
             {test : /\.(js)$/, use:'babel-loader'},

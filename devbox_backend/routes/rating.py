@@ -1,5 +1,6 @@
 from flask import Blueprint
 from flask import request
+from flask import current_app
 
 from routes.util import GET
 from routes.util import POST
@@ -11,8 +12,6 @@ blueprint = Blueprint(
     import_name=__name__,
     url_prefix='/rating',
 )
-
-from app import redis_client
 
 @blueprint.route('/<snack>', methods=[GET])
 def get_rating(snack):
@@ -29,11 +28,13 @@ def get_rating(snack):
 
     return response
 
+
 @blueprint.route('<snack>', methods=[POST])
 def update_rating(snack):
-    rating = int(request.args.get('value'))
-    if rating not in valid_ratings:
+    if int(request.form.get('rating')) not in valid_ratings:
         raise InvalidUsage('Rating value is invalid', status_code=422)
+
+    redis_client = current_app.extensions.get('redis')
 
     snack_rating_key = '{}_rating'.format(snack)
     snack_count_key = '{}_count'.format(snack)
@@ -53,7 +54,8 @@ def update_rating(snack):
     
     response = {
         'snack': snack,
-        'rating': rating
+        'rating': rating,
+        'count': count,
     }
 
     return response

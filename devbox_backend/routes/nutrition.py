@@ -13,7 +13,7 @@ blueprint = Blueprint(
 
 @blueprint.route('/', methods=[GET])
 def get_all_nutrition():
-    return get_nutrition()
+    return get_nutrition_data()
 
 
 @blueprint.route('/<snack>', methods=[GET])
