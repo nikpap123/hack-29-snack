@@ -70,9 +70,9 @@ def get_rating(snack):
 def fill_ratings():
     redis_client = current_app.extensions.get('redis')
     for snack in snacks:
-      s = snack.replace(' ', '%20')
-      add_rating(s, 0, 0, redis_client)
+        add_rating(snack, 0, 0, redis_client)
     return {'status': 200}
+
 
 def add_rating(snack, rating, count, redis_client):
     snack_rating_key = '{}_rating'.format(snack)
@@ -81,13 +81,13 @@ def add_rating(snack, rating, count, redis_client):
     pipe.set(snack_rating_key, rating)
     pipe.set(snack_count_key, count)
     pipe.execute()
-    
+
+
 @blueprint.route('<snack>', methods=[POST])
 def update_rating(snack):
     if int(request.form.get('rating')) not in valid_ratings:
         raise InvalidUsage('Rating value is invalid', status_code=422)
 
-    snack = snack.replace(' ', '%20')
     redis_client = current_app.extensions.get('redis')
     snack_rating_key = '{}_rating'.format(snack)
     snack_count_key = '{}_count'.format(snack)
