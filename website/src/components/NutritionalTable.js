@@ -14,7 +14,7 @@ const useStyles = makeStyles(theme => ({
     overflowX: 'auto',
   },
   table: {
-    minWidth: 400,
+    // minWidth: 400,
   },
 }));
 

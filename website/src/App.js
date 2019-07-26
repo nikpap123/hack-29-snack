@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import Header from './components/Header';
 import Navigation from './components/Navigation';
 import SimpleTable from './components/SimpleTable';
-import Modal from 'react-bootstrap/Modal';  
+import Modal from 'react-bootstrap/Modal';
+import { Container, Row, Col, Form } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import NutritionalTable from './components/NutritionalTable';
 import StarRatingComponent from 'react-star-rating-component';
+import Reviews from "./components/Reviews"
 import './App.css';
 import $ from 'jquery';
 
@@ -22,8 +24,11 @@ class App extends Component {
       nutrition: {},
       ratings: {},
       photo_view: false,
-      loading: true
+      loading: true,
+      review: "",
+      current_snack_reviews: ""
     }
+    this.handleTextAreaChange = this.handleTextAreaChange.bind(this);
   }
 
   componentWillMount() {
@@ -76,6 +81,7 @@ class App extends Component {
     this.setState({rating: 0})
     this.setState({current_snack: ""})
     this.setState({show: false})
+    this.setState({review: ""})
   } 
 
   handleSaveAndClose() {
@@ -88,16 +94,33 @@ class App extends Component {
     this.setState({current_snack: name})
   }
 
+  handleTextAreaChange(event) {
+    this.setState({review: event.target.value})
+  }
+
   submitRating(rating) { 
-    $.ajax({
-      method: "POST",
-      url: "/rating/" + this.state.current_snack,
-      data: {
-        rating: this.state.rating
-      }
-    }).done((response) => {
-      this.getRatings()
-    });
+    if (this.state.rating !== 0) {
+      $.ajax({
+        method: "POST",
+        url: "/rating/" + this.state.current_snack,
+        data: {
+          rating: this.state.rating
+        }
+      }).done((response) => {
+        this.getRatings()
+      });
+    }
+
+    if (this.state.review.length !== 0) {
+      $.ajax({
+        method: "POST",
+        url: "/review/" + this.state.current_snack,
+        data: {
+          review: this.state.review
+        }
+      });
+    } 
+
 
   }
 
@@ -131,6 +154,10 @@ class App extends Component {
         {!this.state.photo_view && !this.state.loading && 
           <div>
             <a className="link" onClick={() => this.changeView()}> see live photo </a>
+            <br/>
+            <span>Ran out of snacks?</span>
+            <br/>
+            <Button variant="primary" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Order more!</Button>
             <SimpleTable ratings={this.state.ratings} availability={this.state.availability} nutrition={this.state.nutrition} clickAction={(name) => this.handleClick(name)}/>
           </div>
         }
@@ -146,22 +173,36 @@ class App extends Component {
           </div>
         }
 
-        <Modal onHide={() => this.handleClose()} show={this.state.show}>
+        <Modal onHide={() => this.handleClose()} show={this.state.show} size="lg">
           <Modal.Header>
             <Modal.Title>{this.state.current_snack}</Modal.Title>
           </Modal.Header>
 
           <Modal.Body>
-            <p style={{marginTop: 0, marginBottom: 0}}>Leave a review!</p>
-            <StarRatingComponent
-              name={"leaveReview"}
-              value={this.state.rating}
-              onStarClick={this.onStarClick.bind(this)}
-              editing={true}
-            />
-            <br/>
-            <p style={{marginTop: "2px", marginBottom: 0}}>Nutrition Details</p>
-            <NutritionalTable nutrition={this.state.nutrition} snack={this.state.current_snack}/>
+            <Container>
+              <Row>
+                <Col md={7}>
+                  <p style={{marginTop: "2px", marginBottom: 0}}>Nutrition Details</p>
+                  <NutritionalTable nutrition={this.state.nutrition} snack={this.state.current_snack}/>
+                </Col>
+                <Col md={5}>
+                  <p style={{marginTop: 0, marginBottom: 0}}>Leave a review!</p>
+                  <StarRatingComponent
+                    name={"leaveReview"}
+                    value={this.state.rating}
+                    onStarClick={this.onStarClick.bind(this)}
+                    editing={true}
+                  />
+                  <Form.Group>
+                    <Form.Control as="textarea" rows="3" style={{resize: 'none'}} value={this.state.review} onChange={this.handleTextAreaChange} />
+                  </Form.Group>
+
+                  {/* <Row> */}
+                    <Reviews currentSnack={this.state.current_snack} />
+                  {/* </Row> */}
+                </Col>
+              </Row>
+            </Container>
           </Modal.Body>
 
           <Modal.Footer>
