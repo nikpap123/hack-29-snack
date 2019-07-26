@@ -36,7 +36,8 @@ frontend_image_path = '/Users/{user}/hack-29-snack/website/src/images/image.jpg'
 def _copy_image_from_pi():
     copy_image_bash_command = [
         'scp',
-        'pi@172.30.166.1:{pi_image_path}'.format(pi_image_path=pi_image_path),
+        '-P 19885',
+        'pi@0.tcp.ngrok.io:{pi_image_path}'.format(pi_image_path=pi_image_path),
         backend_image_path,
     ]
     copy_image_to_frontend = [
