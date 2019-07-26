@@ -19,7 +19,9 @@ class App extends Component {
       floor: 2,
       rating: 0,
       availability: {},
-      nutrition: {}
+      nutrition: {},
+      ratings: {},
+      photo_view: true
     }
   }
 
@@ -31,7 +33,14 @@ class App extends Component {
   getPhoto() {
   }
 
-  getRating() {
+  getRatings() {
+    $.ajax({
+      method: "GET",
+      url: "/rating"
+    }).done((response) => {
+      console.log(response);
+      this.setState({ratings: response})
+    });
   }
 
   getNutrition() {
@@ -67,11 +76,24 @@ class App extends Component {
   }
 
   submitRating(rating) { 
-    console.log(rating)
+    $.ajax({
+      method: "POST",
+      url: "/rating/" + this.state.current_snack,
+      data: {
+        rating: this.state.rating
+      }
+    }).done((response) => {
+      this.setState({nutrition: response})
+    });
+
   }
 
   onStarClick(nextValue, prevValue, name){
     this.setState({rating: nextValue})
+  }
+
+  changeView(){
+    this.setState({photo_view: !this.state.photo_view});
   }
 
   render() {
@@ -81,15 +103,22 @@ class App extends Component {
         <Navigation/>
         
         <h2>
-          <img style={{position: 'relative', top: '-10px'}}src={require('./images/corgif.gif')} />
-          Welcome to the Snackathon!
+              <img style={{position: 'relative', top: '-10px'}}src={require('./images/corgif.gif')} />
+              Welcome to the Snackathon!
         </h2>
 
-        <SimpleTable availability={this.state.availability} nutrition={this.state.nutrition} clickAction={(name) => this.handleClick(name)}/>
-        
-        <h2>Live photo:</h2>
-
-        <img width="100%" height="100%" src={require('./images/snack.jpg')} />
+        {this.state.photo_view && 
+          <div>
+            <a className="link" onClick={() => this.changeView()}> see live photo </a>
+            <SimpleTable availability={this.state.availability} nutrition={this.state.nutrition} clickAction={(name) => this.handleClick(name)}/>
+          </div>
+        }
+        {!this.state.photo_view &&
+          <div>
+            <a className="link" onClick={() => this.changeView()}> see snack details </a>
+            <img width="100%" height="100%" style={{paddingTop: '20px'}} src={require('./images/snack.jpg')} />
+          </div>
+        }
 
         <Modal onHide={() => this.handleClose()} show={this.state.show}>
           <Modal.Header>
