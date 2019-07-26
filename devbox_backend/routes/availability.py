@@ -17,11 +17,10 @@ AVAILABILITY = 'availability'
 TIMESTAMP_FORMAT = "%Y/%m/%d:%H-%M-%S"
 
 def should_rerun_model(redis_client):
-    timestamp_str = redis_client.get(IMAGE_TIMESTAMP_KEY).decode('utf-8')
-    timestamp = datetime.strptime(timestamp_str, TIMESTAMP_FORMAT)
-    if timestamp is None:
+    timestamp_val = redis_client.get(IMAGE_TIMESTAMP_KEY)
+    if timestamp_val is None:
         return True
-
+    timestamp = datetime.strptime(timestamp_val.decode('utf-8'), TIMESTAMP_FORMAT)
     now = datetime.now()
     if now < timestamp + timedelta(minutes=1):
         return False

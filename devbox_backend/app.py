@@ -8,7 +8,7 @@ from routes import rating
 from routes import availability
 from routes import nutrition
 from routes import image
-from logic.exceptions import InvalidUsage
+from logic.exceptions import InvalidUsage, NotFoundError
 
 app = Flask(__name__)
 redis_client = FlaskRedis(app)
@@ -26,6 +26,11 @@ def handle_invalid_usage(error):
     response.status_code = error.status_code
     return response
 
+@app.errorhandler(NotFoundError)
+def handle_not_found(error):
+    response = jsonify(error.to_dict())
+    response.status_code = error.status_code
+    return response
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')

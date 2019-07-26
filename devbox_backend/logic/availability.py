@@ -1,3 +1,6 @@
+import os
+import subprocess
+
 from logic.model.predict import predict
 
 snacks = [
@@ -24,6 +27,19 @@ snacks = [
     "strawberry jif power ups",
 ]
 
+user = os.environ.get('USER')
+pi_image_path = '/home/pi/hack-29-snack/devbox_backend/image.jpg'
+backend_image_path = '/Users/{user}/hack-29-snack/devbox_backend/image.jpg'.format(user=user)
+
+
+def _copy_image_from_pi():
+    copy_image_bash_command = [
+        'scp',
+        'pi@172.30.166.1:{pi_image_path}'.format(pi_image_path=pi_image_path),
+        backend_image_path,
+    ]
+    subprocess.run(copy_image_bash_command)
+
 
 def _map_predict_outputs_to_snack(predict_outputs):
     return {
@@ -33,6 +49,8 @@ def _map_predict_outputs_to_snack(predict_outputs):
         for snack, availability in zip(snacks, predict_outputs)
     }           
 
+
 def get_latest_availability():
-    predict_output = predict('../empty1.jpg');
+    _copy_image_from_pi()
+    predict_output = predict(backend_image_path)
     return _map_predict_outputs_to_snack(predict_output)
