@@ -32,3 +32,12 @@ body { padding-top: 90px; }
 h2 { 
   padding-top: 20px; 
 }
+
+label {
+  margin-bottom: 0;
+  float: left;
+}
+
+.dv-star-rating {
+  float: left;
+}

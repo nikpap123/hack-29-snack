@@ -26,7 +26,9 @@ export default function SimpleTable(props) {
     rows.push({
       'name': key,
       'calories': props.nutrition[key]?props.nutrition[key]['calories']:'N/A',
-      'available': props.availability[key]['available']?'Yes':'No'
+      'available': props.availability[key]['available']?'Yes':'No',
+      'rating': props.ratings[key]['rating'],
+      'count': props.ratings[key]['count']
     })
   }
 
@@ -49,12 +51,15 @@ export default function SimpleTable(props) {
               </TableCell>
               <TableCell align="right">{row.calories}</TableCell>
               <TableCell align="right">{row.available}</TableCell>
-              <TableCell align="right">
+              <TableCell align="right" style={{fontSize: 10, textAlign: 'center'}}>
                 <StarRatingComponent
                   name={row.name}
                   value={row.rating}
                   editing={false}
                 />
+                <span style={{}}>
+                ({row.count})
+                </span>
               </TableCell>
             </TableRow>
           ))}
