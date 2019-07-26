@@ -54,7 +54,8 @@ def update_rating(snack):
     
     response = {
         'snack': snack,
-        'rating': rating / count
+        'rating': rating,
+        'count': count,
     }
 
     return response
