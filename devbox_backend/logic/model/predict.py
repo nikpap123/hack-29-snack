@@ -6,7 +6,7 @@ from sklearn.externals import joblib
 
 def predict(imname):
     path = os.path.dirname(os.path.realpath(__file__))
-    imfilepath = os.path.abspath(os.path.join(path, '..', imname))
+    imfilepath = os.path.abspath(os.path.join(path, '../..', imname))
     print(imfilepath)
     crop_data = make_input_data(imfilepath)
     data = np.empty((21, 43200))
@@ -15,3 +15,5 @@ def predict(imname):
         data[i,:] = np.array(im).flatten()
     y_pred = clf.predict(data)
     return y_pred
+
+print(predict('offset.jpg'))
