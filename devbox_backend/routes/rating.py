@@ -5,7 +5,7 @@ from flask import current_app
 from routes.util import GET
 from routes.util import POST
 from logic.rating import valid_ratings
-from logic.exceptions import InvalidUsage
+from logic.exceptions import InvalidUsage, NotFoundError
 
 blueprint = Blueprint(
     name='rating',
@@ -15,18 +15,20 @@ blueprint = Blueprint(
 
 @blueprint.route('/<snack>', methods=[GET])
 def get_rating(snack):
+    redis_client = current_app.extensions.get('redis')
     snack_rating_key = '{}_rating'.format(snack)
     snack_count_key = '{}_count'.format(snack)
     pipe = redis_client.pipeline()
     pipe.get(snack_rating_key)
     pipe.get(snack_count_key)
     rating, count = pipe.execute()
-    response = {
+    if rating is None or count is None:
+        raise NotFoundError('Invalid snack', status_code=404)
+
+    return {
         'rating': int(rating),
         'count': int(count)
     }
-
-    return response
 
 
 @blueprint.route('<snack>', methods=[POST])
@@ -35,10 +37,8 @@ def update_rating(snack):
         raise InvalidUsage('Rating value is invalid', status_code=422)
 
     redis_client = current_app.extensions.get('redis')
-
     snack_rating_key = '{}_rating'.format(snack)
     snack_count_key = '{}_count'.format(snack)
-
     pipe = redis_client.pipeline()
     pipe.get(snack_rating_key)
     pipe.get(snack_count_key)        
